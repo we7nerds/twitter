@@ -17,8 +17,16 @@
 .tweet {
     border: 1px solid grey;
     border-radius: 5px;
-    paiding: 5px;
+    padding: 5px;
     margin: 5px;
+}
+
+#tweetSuccess {
+    display: none;
+}
+
+#tweetFail {
+    display: none;
 }
 
 /* Sticky footer styles

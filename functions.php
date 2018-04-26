@@ -56,6 +56,16 @@ function displayTweets($type) {
 
         }
 
+    } else if ($type == 'yourtweets') {
+
+        $whereClause = "WHERE userid = ".mysqli_real_escape_string($link, $_SESSION['id']);
+
+    } else if ($type == 'search') {
+
+        echo "<p>Showing search results for '".mysqli_real_escape_string($link, $_GET['q'])."':</p>";
+
+        $whereClause = "WHERE tweet LIKE '%".mysqli_real_escape_string($link, $_GET['q'])."%'";
+
     }
 
     $query = "SELECT * FROM tweets ".$whereClause." ORDER BY `datetime` DESC LIMIT 10";
@@ -111,7 +121,7 @@ function time_since($since) {
         array(60 * 60 * 24 , 'day'),
         array(60 * 60 , 'hour'),
         array(60 , 'min'),
-        array(1 , 's')
+        array(1 , 'second')
     );
 
     for ($i = 0, $j = count($chunks); $i < $j; $i++) {
@@ -128,17 +138,19 @@ function time_since($since) {
 
 function displaySearch() {
 
-    echo '<div class="form-inline">
+    echo '<form class="form-inline">
 
         <div class="form-group">
 
-            <input type="text" class="form-control" id="search" placeholder="Search">
+            <input type="hidden" name="page" value="search">
+
+            <input type="text" class="form-control" id="search" name="q" placeholder="Search">
 
         </div>
 
         <button class="btn btn-primary">Search Tweets</button>
 
-    </div>';
+    </form>';
 
 }
 
@@ -146,7 +158,10 @@ function displayTweetBox() {
 
     if ($_SESSION['id'] > 0) {
 
-        echo '<div class="form">
+        echo '<div id="tweetSuccess" class="alert alert-success">Your tweet was posted successfully.</div>
+        <div id="tweetFail" class="alert alert-danger"></div>
+
+    <div class="form">
 
         <div class="form-group">
 
@@ -154,9 +169,25 @@ function displayTweetBox() {
 
         </div>
 
-        <button class="btn btn-primary">Post Tweet</button>
+        <button class="btn btn-primary" id="postTweetBtn">Post Tweet</button>
 
     </div>';
+
+    }
+
+}
+
+function displayUsers() {
+
+    global $link;
+
+    $query = "SELECT * FROM users LIMIT 10";
+
+    $result = mysqli_query($link, $query);
+
+    while ($row = mysqli_fetch_assoc($result)) {
+
+        echo $row['email'];
 
     }
 

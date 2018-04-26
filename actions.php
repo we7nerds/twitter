@@ -128,3 +128,31 @@ if ($_GET['action'] == "toggleFollow") {
     }
 
 }
+
+if ($_GET['action'] == "postTweet") {
+
+    if (!$_POST['tweetContent']) {
+
+        echo "Your tweet is empty.";
+
+    } elseif (strlen($_POST['tweetContent']) > 140) {
+
+        echo "Your tweet is too long!";
+
+    } else {
+
+        if (mysqli_query($link, "INSERT INTO tweets (`tweet`, `userid`, `datetime`) VALUES ('".mysqli_real_escape_string($link,
+                $_POST['tweetContent'])."', '".mysqli_real_escape_string($link, $_SESSION['id'])."', NOW());")) {
+
+            echo "1";
+
+        } else {
+
+            echo mysqli_error($link);
+
+        }
+
+
+    }
+
+}
