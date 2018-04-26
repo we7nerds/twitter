@@ -66,6 +66,16 @@ function displayTweets($type) {
 
         $whereClause = "WHERE tweet LIKE '%".mysqli_real_escape_string($link, $_GET['q'])."%'";
 
+    } else if (is_numeric($type)) {
+
+        $userQuery = "SELECT * FROM users WHERE `id` = ".$type." LIMIT 1";
+        $userResult = mysqli_query($link, $userQuery);
+        $user = mysqli_fetch_assoc($userResult);
+
+        echo "<h2>".mysqli_real_escape_string($link, $user['email'])."'s Tweets</h2>";
+
+        $whereClause = "WHERE userid = ".mysqli_real_escape_string($link, $type);
+
     }
 
     $query = "SELECT * FROM tweets ".$whereClause." ORDER BY `datetime` DESC LIMIT 10";
@@ -85,7 +95,7 @@ function displayTweets($type) {
             $userResult = mysqli_query($link, $userQuery);
             $user = mysqli_fetch_assoc($userResult);
 
-            echo "<div class='tweet'><p>".$user['email']." <span class='time'>".time_since(time() - strtotime($row['datetime']))." ago</span>:</p>";
+            echo "<div class='tweet'><p><a href='?page=publicprofiles&userid=".$user['id']."' >".$user['email']."</a> <span class='time'>".time_since(time() - strtotime($row['datetime']))." ago</span>:</p>";
 
             echo "<p>".$row['tweet']."</p>";
 
@@ -187,7 +197,7 @@ function displayUsers() {
 
     while ($row = mysqli_fetch_assoc($result)) {
 
-        echo $row['email'];
+        echo "<p><a href='?page=publicprofiles&userid=".$row['id']."'>".$row['email']."</a></p>";
 
     }
 

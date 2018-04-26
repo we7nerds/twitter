@@ -31,8 +31,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="?page=timeline">Your Timeline <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="?page=timeline">Your Timeline</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="?page=yourtweets">Your tweets</a>

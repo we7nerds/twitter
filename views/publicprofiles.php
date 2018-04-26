@@ -13,7 +13,7 @@
 
             <?php if ($_GET['userid']) { ?>
 
-
+                <?php displayTweets($_GET['userid']) ?>
 
             <?php }  else { ?>
 
