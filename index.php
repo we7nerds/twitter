@@ -10,11 +10,11 @@ include "functions.php";
 
 include "views/header.php";
 
-if ($_GET['page'] == 'timeline') {
+if ($_GET['page'] == 'timeline' && isset($_SESSION['id'])) {
 
     include "views/timeline.php";
 
-} else if ($_GET['page'] == 'yourtweets') {
+} else if ($_GET['page'] == 'yourtweets' && isset($_SESSION['id'])) {
 
     include "views/yourtweets.php";
 

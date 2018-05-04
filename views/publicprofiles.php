@@ -17,7 +17,7 @@
 
             <?php }  else { ?>
 
-                <h2>Recent Tweets</h2>
+                <h2>Twitter Clone Users</h2>
                 <?php displayUsers() ?>
 
             <?php } ?>

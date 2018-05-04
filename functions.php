@@ -33,7 +33,7 @@ function displayTweets($type) {
 
         $whereClause = "";
 
-    } else if ($type == "isFollowing") {
+    } else if ($type == "isFollowing" && isset($_SESSION['id'])) {
 
         $query = "SELECT * FROM isFollowing WHERE `follower` = ".mysqli_real_escape_string($link, $_SESSION['id']).";";
         $result = mysqli_query($link, $query);
@@ -56,7 +56,7 @@ function displayTweets($type) {
 
         }
 
-    } else if ($type == 'yourtweets') {
+    } else if ($type == 'yourtweets' && isset($_SESSION['id'])) {
 
         $whereClause = "WHERE userid = ".mysqli_real_escape_string($link, $_SESSION['id']);
 
